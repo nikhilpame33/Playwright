@@ -82,7 +82,7 @@ test.only("@Client Login", async({page}) => {
     // await page.pause()
 
     await page.locator(".btnn.action__submit.ng-star-inserted").click()
-    await expect(page.locator("div[aria-label*='Order Placed Successfully']")).toContainText("Successfully ")
+    await expect(page.locator("div[aria-label*='Order Placed Successfully']")).toContainText("Successfully")
     await expect(page.locator("div.title:has-text('ZARA COAT 3')")).toBeVisible();
 
 
