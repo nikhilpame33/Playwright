@@ -14,7 +14,7 @@ const config = defineConfig({
   
   use: {
     browserName : 'chromium',
-    headless : false
+    headless : true
   }
 });
 module.exports = config
