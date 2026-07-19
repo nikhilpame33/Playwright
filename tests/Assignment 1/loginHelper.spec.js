@@ -1,4 +1,6 @@
 const {test,expect} = require("@playwright/test");
+const username = "Nikhil@gmail.com"
+const password = "Nikhil@1"
 
 test("@login page", async({page, username, password}) =>
 {
