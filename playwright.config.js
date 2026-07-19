@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from '@playwright/test';
+import { truncate } from 'node:fs';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -14,7 +15,8 @@ const config = defineConfig({
   
   use: {
     browserName : 'chromium',
-    headless : true
-  }
+    headless : false,
+    screenshot:'on',
+    trace:'retain-on-failure' }
 });
 module.exports = config

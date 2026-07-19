@@ -1,29 +1,14 @@
-const {test,expect} = require("@playwright/test");
+const {test, expect} = require('@playwright/test');
 const site_Link = "https://rahulshettyacademy.com/client/#/auth/login"
 
-test.only("@client Register ", async({page}) =>{
-    
-    await page.goto(site_Link);
-    await page.locator(".text-reset").click();
-    await page.locator("[type='firstName']").fill("Kishna");
-    await page.locator("#lastName").fill("Yadav");
-    await page.locator("input[placeholder*='email@example.com']").fill("KYadav1@gmail.com");
-    await page.locator("#userMobile").fill("9876543210");
-    await page.locator("select.custom-select").selectOption({ label: 'Engineer' });
-    await page.getByText('Male', {exact:true}).check();
-    await page.locator("#userPassword").fill("KYadav@1");
-    await page.locator("#confirmPassword").fill("KYadav@1");
-    await page.locator("input[type*='checkbox']").check();
-    await page.locator('#login').click()
-    await page.waitForTimeout(5000);
-    await expect(page.locator("[style*='text-align: center']")).toContainText('Account Created Successfully')
-
-})
 
 test("@Client Login and Book Order", async({page}) => {
 
     const product_name = 'ZARA COAT 3';
     const products = page.locator('.card-body')
+    // page.on('request',request => console.log(`request url ->${request.method()} ${request.url()}`))
+    // page.on('response',response => console.log(`response url -> ${response.request().method()} ${response.url()}, ${response.status()}`))
+    page.on('response',response => console.log(response.request().method(), response.url(), response.status()))
     await page.goto(site_Link)
     await page.locator('#userEmail').fill("KYadav1@gmail.com")
     await page.locator('#userPassword').fill("KYadav@1")
@@ -104,4 +89,3 @@ test("@Client Login and Book Order", async({page}) => {
     expect(orderID.includes(summaryOrderId)).toBeTruthy();
 
 });
-

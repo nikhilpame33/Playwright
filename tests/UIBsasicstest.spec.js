@@ -47,7 +47,7 @@ test('login page', async ({page}) => {
 
 })
 
-test.only('@Child windows handaling', async ({browser}) => {
+test('@Child windows handaling', async ({browser}) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")

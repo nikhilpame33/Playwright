@@ -1,34 +1,30 @@
 const {test,expect} = require("@playwright/test");
 const site_Link = "https://rahulshettyacademy.com/client/#/auth/login"
+let webContext;
 
-test.only("@client Register ", async({page}) =>{
-    
-    await page.goto(site_Link);
-    await page.locator(".text-reset").click();
-    await page.locator("[type='firstName']").fill("Kishna");
-    await page.locator("#lastName").fill("Yadav");
-    await page.locator("input[placeholder*='email@example.com']").fill("KYadav1@gmail.com");
-    await page.locator("#userMobile").fill("9876543210");
-    await page.locator("select.custom-select").selectOption({ label: 'Engineer' });
-    await page.getByText('Male', {exact:true}).check();
-    await page.locator("#userPassword").fill("KYadav@1");
-    await page.locator("#confirmPassword").fill("KYadav@1");
-    await page.locator("input[type*='checkbox']").check();
-    await page.locator('#login').click()
-    await page.waitForTimeout(5000);
-    await expect(page.locator("[style*='text-align: center']")).toContainText('Account Created Successfully')
-
-})
-
-test("@Client Login and Book Order", async({page}) => {
-
-    const product_name = 'ZARA COAT 3';
-    const products = page.locator('.card-body')
+test.beforeAll(async({browser}) =>
+{
+    const context = await browser.newContext();
+    const page = await context.newPage();
     await page.goto(site_Link)
     await page.locator('#userEmail').fill("KYadav1@gmail.com")
     await page.locator('#userPassword').fill("KYadav@1")
     await page.getByRole('button',{name:'login'}).click()
-    //await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle');
+    await context.storageState({path:'state.json'});
+    webContext = await browser.newContext({storageState:'state.json'});
+    
+    
+
+})
+
+
+test("@Client Login and Book Order", async() => {
+
+    const product_name = 'ZARA COAT 3';
+    const page = await webContext.newPage();
+    const products = page.locator('.card-body')
+    await page.goto(site_Link)
     await page.locator('.card-body b').last().waitFor();
     const all_item = await page.locator('.card-body b').allTextContents();
     console.log("All Product on 1st page: ",all_item)
@@ -104,4 +100,3 @@ test("@Client Login and Book Order", async({page}) => {
     expect(orderID.includes(summaryOrderId)).toBeTruthy();
 
 });
-
