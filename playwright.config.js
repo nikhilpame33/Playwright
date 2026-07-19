@@ -15,7 +15,7 @@ const config = defineConfig({
   
   use: {
     browserName : 'chromium',
-    headless : false,
+    headless: process.env.CI ? true : false,
     screenshot:'on',
     trace:'retain-on-failure' }
 });
