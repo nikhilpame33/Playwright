@@ -1,9 +1,10 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [ main, feature_learning ]
-  pull_request:
-    branches: [ main, feature_learning ]
+  workflow_dispatch:
+  # push:
+  #   branches: [ main, feature_learning ]
+  # pull_request:
+  #   branches: [ main, feature_learning ]
 jobs:
   test:
     timeout-minutes: 60
